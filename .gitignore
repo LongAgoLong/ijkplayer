@@ -7,4 +7,5 @@
 /captures
 android-ndk-prof
 /.idea
-../build
+../build/
+*.iml
