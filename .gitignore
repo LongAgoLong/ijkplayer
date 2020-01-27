@@ -6,3 +6,5 @@
 /build
 /captures
 android-ndk-prof
+/.idea
+../build
