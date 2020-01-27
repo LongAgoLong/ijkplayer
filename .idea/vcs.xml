@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ijkplayer-arm64/src/main/jni/ijkmedia/ijksoundtouch" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ijkplayer-arm64/src/main/jni/ijkmedia/ijkyuv" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ijkplayer-armv5/src/main/jni/ijkmedia/ijksoundtouch" vcs="Git" />
