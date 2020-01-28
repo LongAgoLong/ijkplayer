@@ -1,5 +1,9 @@
 # 基于ijkplayer 0.8.8编译default版本
+----------
 [![](https://jitpack.io/v/LongAgoLong/ijkplayer.svg)](https://jitpack.io/#LongAgoLong/ijkplayer) 
+
+
+基于blibli开源的ijkplayer源码（[传送门](https://github.com/Bilibili/ijkplayer)）进行编译，使用的是module-default.sh配置编译，支持较全的编解码格式！具体描述可查看源码的README.md文件
 **gradle依赖**
 ```gradle
 allprojects {
