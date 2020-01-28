@@ -13,14 +13,14 @@ allprojects {
 }
 ```
 ```gradle
-implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-java:$JitPack-Version$'
-implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-exo:$JitPack-Version$'
+implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-java:1.0.0'
+implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-exo:1.0.0'
 
-implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-armv7a:$JitPack-Version$'
-implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-x86_64:$JitPack-Version$'
-implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-x86:$JitPack-Version$'
-implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-arm64:$JitPack-Version$'
-implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-armv5:$JitPack-Version$'
+implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-armv7a:1.0.0'
+implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-x86_64:1.0.0'
+implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-x86:1.0.0'
+implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-arm64:1.0.0'
+implementation 'com.github.LongAgoLong.ijkplayer:ijkplayer-armv5:1.0.0'
 ```
 **maven依赖**
 ```gralde
