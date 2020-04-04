@@ -38,8 +38,6 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
-import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 import tv.danmaku.ijk.media.example.R;
 import tv.danmaku.ijk.media.example.application.Settings;
 import tv.danmaku.ijk.media.example.content.RecentMediaStorage;
@@ -47,12 +45,14 @@ import tv.danmaku.ijk.media.example.fragments.TracksFragment;
 import tv.danmaku.ijk.media.example.widget.media.AndroidMediaController;
 import tv.danmaku.ijk.media.example.widget.media.IjkVideoView;
 import tv.danmaku.ijk.media.example.widget.media.MeasureHelper;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 
 public class VideoActivity extends AppCompatActivity implements TracksFragment.ITrackHolder {
     private static final String TAG = "VideoActivity";
 
     private String mVideoPath;
-    private Uri    mVideoUri;
+    private Uri mVideoUri;
 
     private AndroidMediaController mMediaController;
     private IjkVideoView mVideoView;
@@ -63,16 +63,22 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
 
     private Settings mSettings;
     private boolean mBackPressed;
+    private boolean mIsLive;
 
-    public static Intent newIntent(Context context, String videoPath, String videoTitle) {
+    public static Intent newIntent(Context context, String videoPath, String videoTitle, boolean isLive) {
         Intent intent = new Intent(context, VideoActivity.class);
         intent.putExtra("videoPath", videoPath);
         intent.putExtra("videoTitle", videoTitle);
+        intent.putExtra("isLive", isLive);
         return intent;
     }
 
     public static void intentTo(Context context, String videoPath, String videoTitle) {
-        context.startActivity(newIntent(context, videoPath, videoTitle));
+        intentTo(context, videoPath, videoTitle, false);
+    }
+
+    public static void intentTo(Context context, String videoPath, String videoTitle, boolean isLive) {
+        context.startActivity(newIntent(context, videoPath, videoTitle, isLive));
     }
 
     @Override
@@ -84,6 +90,7 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
 
         // handle arguments
         mVideoPath = getIntent().getStringExtra("videoPath");
+        mIsLive = getIntent().getBooleanExtra("isLive", false);
 
         Intent intent = getIntent();
         String intentAction = intent.getAction();
@@ -139,13 +146,14 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
 
         mVideoView = (IjkVideoView) findViewById(R.id.video_view);
         mVideoView.setMediaController(mMediaController);
+        // 显示实时信息
         mVideoView.setHudView(mHudView);
         // prefer mVideoPath
-        if (mVideoPath != null)
+        if (mVideoPath != null) {
             mVideoView.setVideoPath(mVideoPath);
-        else if (mVideoUri != null)
+        } else if (mVideoUri != null) {
             mVideoView.setVideoURI(mVideoUri);
-        else {
+        } else {
             Log.e(TAG, "Null Data Source\n");
             finish();
             return;
@@ -244,9 +252,9 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
 
     @Override
     public int getSelectedTrack(int trackType) {
-        if (mVideoView == null)
+        if (mVideoView == null) {
             return -1;
-
+        }
         return mVideoView.getSelectedTrack(trackType);
     }
 }
