@@ -52,7 +52,7 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
     private static final String TAG = "VideoActivity";
 
     private String mVideoPath;
-    private Uri    mVideoUri;
+    private Uri mVideoUri;
 
     private AndroidMediaController mMediaController;
     private IjkVideoView mVideoView;
@@ -61,7 +61,6 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
     private DrawerLayout mDrawerLayout;
     private ViewGroup mRightDrawer;
 
-    private Settings mSettings;
     private boolean mBackPressed;
 
     public static Intent newIntent(Context context, String videoPath, String videoTitle) {
@@ -79,8 +78,6 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
-
-        mSettings = new Settings(this);
 
         // handle arguments
         mVideoPath = getIntent().getStringExtra("videoPath");
@@ -119,17 +116,17 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
         }
 
         // init UI
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
         mMediaController = new AndroidMediaController(this, false);
         mMediaController.setSupportActionBar(actionBar);
 
-        mToastTextView = (TextView) findViewById(R.id.toast_text_view);
-        mHudView = (TableLayout) findViewById(R.id.hud_view);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mRightDrawer = (ViewGroup) findViewById(R.id.right_drawer);
+        mToastTextView = findViewById(R.id.toast_text_view);
+        mHudView = findViewById(R.id.hud_view);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mRightDrawer = findViewById(R.id.right_drawer);
 
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
 
@@ -137,15 +134,15 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
         IjkMediaPlayer.loadLibrariesOnce(null);
         IjkMediaPlayer.native_profileBegin("libijkplayer.so");
 
-        mVideoView = (IjkVideoView) findViewById(R.id.video_view);
+        mVideoView = findViewById(R.id.video_view);
         mVideoView.setMediaController(mMediaController);
-        mVideoView.setHudView(mHudView);
+//        mVideoView.setHudView(mHudView);
         // prefer mVideoPath
-        if (mVideoPath != null)
+        if (mVideoPath != null) {
             mVideoView.setVideoPath(mVideoPath);
-        else if (mVideoUri != null)
+        } else if (mVideoUri != null) {
             mVideoView.setVideoURI(mVideoUri);
-        else {
+        } else {
             Log.e(TAG, "Null Data Source\n");
             finish();
             return;
@@ -156,14 +153,12 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
     @Override
     public void onBackPressed() {
         mBackPressed = true;
-
         super.onBackPressed();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
         if (mBackPressed || !mVideoView.isBackgroundPlayEnabled()) {
             mVideoView.stopPlayback();
             mVideoView.release(true);
@@ -226,9 +221,9 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
 
     @Override
     public ITrackInfo[] getTrackInfo() {
-        if (mVideoView == null)
+        if (mVideoView == null) {
             return null;
-
+        }
         return mVideoView.getTrackInfo();
     }
 
@@ -244,9 +239,9 @@ public class VideoActivity extends AppCompatActivity implements TracksFragment.I
 
     @Override
     public int getSelectedTrack(int trackType) {
-        if (mVideoView == null)
+        if (mVideoView == null) {
             return -1;
-
+        }
         return mVideoView.getSelectedTrack(trackType);
     }
 }
